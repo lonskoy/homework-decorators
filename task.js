@@ -12,7 +12,7 @@ function cachingDecoratorNew(func) {
       let result = func(...args);
       cach.push({[hash]: result});
         if (cach.length > 5) {
-          delete cach.shift();
+          cach.shift();
         }
       console.log("Вычисляем: " + result);
       return "Вычисляем: " + result;  
@@ -21,6 +21,24 @@ function cachingDecoratorNew(func) {
 }
 
 
-function debounceDecoratorNew(func) {
-  // Ваш код
+// const sendSignal = (signalOrder, delay) => console.log("Сигнал отправлен", signalOrder, delay); // Для себя
+
+function debounceDecoratorNew(func, ms) {
+  let timeOut;                  //Имя таймера
+  let timer, count, allCount = null;   // счетчик вызова функции, счетчик вызова десоратора
+
+    return wrapper(...args) {
+      clearTimeout(timeOut); // Остановка таймера
+
+      timeOut = setTimeout(() => {
+        func.appy(this, args); //Привязка аргументов декоратора к декорируемой функции
+        timer = ms;
+          if ()
+
+        // Что тут вообще надо дальше делать? Я даже примерно не понимаю((
+
+      });
+
+
+    }
 }
