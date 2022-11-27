@@ -24,21 +24,19 @@ function cachingDecoratorNew(func) {
 // const sendSignal = (signalOrder, delay) => console.log("Сигнал отправлен", signalOrder, delay); // Для себя
 
 function debounceDecoratorNew(func, ms) {
-  let timeOut;                  //Имя таймера
-  let timer, count, allCount = null;   // счетчик вызова функции, счетчик вызова десоратора
-
-    return wrapper(...args) {
+  let timeOut; 
+  wrapper.allCount = 0; 
+  wrapper.count = 0
+                  
+    function wrapper(...args) {
       clearTimeout(timeOut); // Остановка таймера
-
-      timeOut = setTimeout(() => {
-        func.appy(this, args); //Привязка аргументов декоратора к декорируемой функции
-        timer = ms;
-          if ()
-
-        // Что тут вообще надо дальше делать? Я даже примерно не понимаю((
-
-      });
-
-
+      func();
+      timeOut = setTimeout( () => {
+        func();
+        wrapper.count += 1;
+      }, ms);
+      wrapper.allCount += 1;
     }
+
+    return wrapper;
 }
