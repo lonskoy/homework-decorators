@@ -24,18 +24,22 @@ function cachingDecoratorNew(func) {
 // const sendSignal = (signalOrder, delay) => console.log("Сигнал отправлен", signalOrder, delay); // Для себя
 
 function debounceDecoratorNew(func, ms) {
-  let timeOut; 
+  let timeOut = null; 
   wrapper.allCount = 0; 
   wrapper.count = 0
                   
     function wrapper(...args) {
       clearTimeout(timeOut); // Остановка таймера
-      func();
-      timeOut = setTimeout( () => {
-        func();
-        wrapper.count += 1;
-      }, ms);
+      func(...args);
+      if(timeOut === null) {
+          timeOut = setTimeout( () => {
+            func(...args);
+            wrapper.count += 1;
+          }, ms);
+      }
+      else {
       wrapper.allCount += 1;
+      }
     }
 
     return wrapper;
